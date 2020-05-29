@@ -42,6 +42,7 @@ RSpec.describe "Chefs Show Page", type: :feature do
 
     visit "/chefs/#{bob.id}"
     expect(page).to have_content("Most Popular Ingredients: flour, tomato, noodles")
+    
   end
 end
 

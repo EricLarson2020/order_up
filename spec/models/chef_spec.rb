@@ -24,6 +24,25 @@ RSpec.describe Chef, type: :model do
 
       expect(bob.list_ingredients).to eql("flour, tomato, noodles")
     end
+    it "most_popular_ingredients" do
+      bob = Chef.create({name: "Bob"})
+      dish_1 = bob.dishes.create({name: "Pizza", description: "Italian Food"})
+      dish_2 = bob.dishes.create({name: "Spagetti", description: "Noodles with sauce"})
+      ingredient_1 = Ingredient.create({name: "flour", calories: 100})
+      ingredient_2 = Ingredient.create({name: "tomato", calories: 50})
+      ingredient_3 = Ingredient.create({name: "noodles", calories: 200})
+      ingredient_4 = Ingredient.create({name: "salt", calories: 1})
+
+      dish_1.ingredients << ingredient_1
+      dish_1.ingredients << ingredient_2
+      dish_2.ingredients << ingredient_2
+      dish_2.ingredients << ingredient_3
+      dish_1.ingredients << ingredient_3
+      dish_2.ingredients << ingredient_1
+      dish_1.ingredients << ingredient_4
+
+      expect(bob.most_popular_ingredients).to eql("flour, tomato, noodles")
+    end
   end
 
 
